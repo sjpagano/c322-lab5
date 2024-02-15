@@ -26,28 +26,46 @@
         </style>
     </head>
     <body>
-        <div class="card">
-            <img src="http:localhost:8080/ducks/1/image" alt="Avatar" style="width: 100%;">
-            <div class="container">
-                <h4><b>1</b></h4>
-                <p>Mallard</p>
-            </div>
-        </div>
+        <div id="card-container">
 
+        </div>
+       <!--
         <div class="card">
-            <img src="http:localhost:8080/ducks/5/image" alt="Avatar" style="width: 100%;">
+            <img src="http://localhost:8080/ducks/duck.id/image" alt="Avatar" style="width: 100%;"/>
             <div class="container">
-                <h4><b>5</b></h4>
-                <p>Mallard</p>
+                <h4><b>duck.id</b></h4>
+                <p>duck.type</p>
             </div>
         </div>
-
-        <div class="card">
-            <img src="http:localhost:8080/ducks/4/image" alt="Avatar" style="width: 100%;">
-            <div class="container">
-                <h4><b>5</b></h4>
-                <p>Redhead</p>
-            </div>
-        </div>
+       --> 
+        <script>
+        let ducks = [];
+        async function getAll() {
+        let host = "http://localhost:8080/ducks";
+        let response = await fetch(host);
+        let result = await response.json();
+        ducks = result;
+        return ducks;
+        }
+        const container = document.getElementById("card-container");
+        async function returnCards() {
+            ducks = await getAll();
+            for (let duck of ducks) {
+                const card = document.createElement("div");
+                card.classList = "container";
+                const content = `
+                <div class = "card">
+                <img src="http://localhost:8080/ducks/${duck.id}/image" alt="Avatar" style="width: 100%;"/>
+                <div class="container">
+                    <h4><b>${duck.id}</b></h4>
+                    <p>${duck.type}</p>
+                    </div>
+                </div>
+                `
+                container.innerHTML += content;
+            }
+        }
+        returnCards();
+        </script>
     </body>
 </html>
