@@ -47,12 +47,12 @@
     <script>
        let ducks = [];
        async function getAll() {
-        let host = "http://localhost:8080";
-        let request = {
-          method: "GET"
-        };
-        ducks.appendChild(fetch(host + "/ducks", request));
-       }
+        let host = "http://localhost:8080/ducks";
+        let response = await fetch(host);
+        let result = await response.json();
+        ducks = result;
+      return ducks; 
+      }
       async function search() {  
         if (ducks.length == 0) {
           ducks = await getAll();
