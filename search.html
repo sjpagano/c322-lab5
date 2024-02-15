@@ -48,7 +48,10 @@
        let ducks = [];
        async function getAll() {
         let host = "http://localhost:8080";
-        //TODO
+        let request = {
+          method: "GET"
+        };
+        ducks.appendChild(fetch(host + "/ducks", request));
        }
       async function search() {  
         if (ducks.length == 0) {
@@ -58,7 +61,7 @@
         let duckType = document.getElementById("type").value;
         let table = document.getElementById("result");
         table.innerHTML = "";
-        
+
         for (let duck of ducks) {
           if (!duckType || duck.type.toLowerCase() == duckType.toLowerCase()) {
             let row = document.createElement("tr");
